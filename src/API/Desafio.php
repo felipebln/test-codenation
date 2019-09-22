@@ -4,8 +4,12 @@ declare(strict_types=1);
 namespace API;
 
 
+use GuzzleHttp\Client;
+
 class Desafio
 {
+    private $url = 'https://api.codenation.dev/v1/challenge/dev-ps/generate-data?token=';
+    private $urlSubmit = 'https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=';
     private $token;
 
 
@@ -19,7 +23,7 @@ class Desafio
 
         $curl = curl_init();
         curl_setopt_array($curl, [
-            CURLOPT_URL => 'https://api.codenation.dev/v1/challenge/dev-ps/generate-data?token=' . $this->token,
+            CURLOPT_URL => $this->url . $this->token,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -40,8 +44,28 @@ class Desafio
         return $response;
     }
 
-    public function postContent(): void
+    public function postFileContent(string $file): void
     {
 
+        $client = new Client(['base_uri' => $this->urlSubmit]);
+
+        $response = $client->request('POST', '/v1/challenge/dev-ps/submit-solution?token=' . $this->token, [
+            'multipart' => [
+                [
+                    'name' => 'answer',
+                    'contents' => 'data',
+                    'headers' => ['Content-Type: multipart/form-data']
+                ],
+                [
+                    'name' => 'answer',
+                    'contents' => fopen($file, 'r'),
+                    'filename' => 'answer'
+                ]
+            ]
+        ]);
+        $responseBody = $response->getBody()->getContents();
+
+        var_dump($responseBody);
+        die('teste');
     }
 }

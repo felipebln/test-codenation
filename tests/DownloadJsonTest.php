@@ -10,7 +10,7 @@ class DownloadJsonTest extends TestCase
 
     public function testDownladJsonToFolder(): void
     {
-        $json = '{"numero_casas":1,"token":"44b41ace58ea17b2dc98ead2dd34926a7aedbbd3","cifrado":"lopxmfehf jt qpxfs. gsbodjt cbdpo","decifrado":"","resumo_criptografico":""}';
+        $json = '{"numero_casas":1,"token":"","cifrado":"lopxmfehf jt qpxfs. gsbodjt cbdpo","decifrado":"","resumo_criptografico":""}';
         $name = 'content.json';
         $dir = __DIR__ . '/../public/files/';
 
