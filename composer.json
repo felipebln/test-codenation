@@ -1,0 +1,16 @@
+{
+  "autoload": {
+    "classmap": [
+      "src/"
+    ],
+    "psr-4": {
+      "Desafio\\": "src/Desafio/",
+      "API\\": "src/API/"
+    }
+  },
+  "require-dev": {
+  },
+  "require": {
+    "phpunit/phpunit": "^8.3"
+  }
+}
